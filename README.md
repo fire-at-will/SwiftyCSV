@@ -1,3 +1,2 @@
 # SwiftyCSV
-
-A description of this package.
+Create CSV strings with none of the hassle! 📝
