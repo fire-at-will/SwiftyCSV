@@ -9,7 +9,7 @@
 Create CSV strings with none of the hassle! 📝
 
 ### Quickstart 🚀
-Get start right away:
+Get started right away:
 ```swift
 import SwiftyCSV
 
