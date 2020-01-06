@@ -46,7 +46,12 @@ Values that contain a comma will be surrounded by quotes. For example,
 
 ```swift
 let commaCSV = CSV(firstRow: "hello, world")
-print(commaCSV.csvString) // Prints "hello, world"
+print(commaCSV.csvString)   // "hello, world"
 ```
 
 ### Double Quotes
+Double quote characters are escaped by placing a second double quote character before the original double quote character.
+
+```swift
+let doubleQuoteCSV = CSV(firstRow: "\"hello world\"")
+print(doubleQuoteCSV.csvString)   // ""hello world"" 
