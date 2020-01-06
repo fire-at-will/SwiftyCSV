@@ -80,6 +80,7 @@ Double quote characters are escaped by placing a second double quote character b
 ```swift
 let doubleQuoteCSV = CSV(firstRow: "\"hello world\"")
 print(doubleQuoteCSV.csvString)   // ""hello world"" 
+```
 
 ## Credits
 
