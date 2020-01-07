@@ -72,4 +72,36 @@ final class CSVExportTests: XCTestCase {
         
         XCTAssertEqual(expectedCSVString, actualCSVString)
     }
+    
+    // MARK: - Edge Cases
+    /**
+     * Ensure that items with commas are surrounded with commas.
+     */
+    func test_Export_CSV_With_Comma() {
+        let csv = CSV(firstRow: "hello,world")
+        let expectedCSV = "\"hello,world\""
+        
+        XCTAssertEqual(expectedCSV, csv.csvString)
+    }
+    
+   /**
+    * Ensure that items with double quotes have the double quotes replaced with two double quotes,
+    * i.e. " -> ""
+    */
+    func test_Export_CSV_With_Double_Quotes() {
+        let csv = CSV(firstRow: "\"hello world\"")
+        let expectedCSV = "\"\"hello world\"\""
+        
+        XCTAssertEqual(expectedCSV, csv.csvString)
+    }
+    
+    /**
+     * Ensure that items with both quotes and commas are correctly exported.
+     */
+    func test_Export_CSV_With_Double_Quotes_And_Comma() {
+        let csv = CSV(firstRow: "\"hello, world\"")
+        let expectedCSV = "\"\"\"hello, world\"\"\""
+        
+        XCTAssertEqual(expectedCSV, csv.csvString)
+    }
 }

@@ -44,15 +44,12 @@ class CSV: Codable {
                 for column in row {
                     // Perform sanitization on the row/column item.
                     var sanitizedColumnItem = column
-                    var columnReceivedSanitization = false
                     
                     if column.contains("\"") {
                         sanitizedColumnItem = column.replacingOccurrences(of: "\"", with: "\"\"")
-                        columnReceivedSanitization = true
                     }
-                    if column.contains(",") { columnReceivedSanitization = true }
+                    if column.contains(",") { sanitizedColumnItem = "\"\(sanitizedColumnItem)\"" }
                     
-                    if columnReceivedSanitization { sanitizedColumnItem = "\"\(sanitizedColumnItem)\"" }
                     
                     csv += "\(sanitizedColumnItem),"
                 }
