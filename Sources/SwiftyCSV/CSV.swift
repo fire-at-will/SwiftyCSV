@@ -71,7 +71,7 @@ public class CSV: Codable {
      * - Author: Will Taylor
      * - Date: 1/3/2020
      */
-    init(){}
+    public init(){}
     
    /**
     * Initialize a CSV with a row of strings.
@@ -82,7 +82,7 @@ public class CSV: Codable {
     * - Parameters:
     *       - firstRow: A variadic list of the items to be placed in the first row of the CSV.
     */
-    init(firstRow: String...) {
+    public init(firstRow: String...) {
         Logger.i("Initializing new CSV with a first row of \(firstRow).")
         self.internalRows.append(firstRow)
     }
