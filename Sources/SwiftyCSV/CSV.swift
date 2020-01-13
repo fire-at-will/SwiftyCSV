@@ -43,15 +43,7 @@ public class CSV: Codable {
                 
                 for column in row {
                     // Perform sanitization on the row/column item.
-                    var sanitizedColumnItem = column
-                    
-                    if column.contains("\"") {
-                        sanitizedColumnItem = column.replacingOccurrences(of: "\"", with: "\"\"")
-                    }
-                    if column.contains(",") { sanitizedColumnItem = "\"\(sanitizedColumnItem)\"" }
-                    
-                    
-                    csv += "\(sanitizedColumnItem),"
+                    csv += "\(csvItemSanitizer.sanitizeStringItem(column)),"
                 }
                 
                 // Remove the trailing comma from the row, if present.
@@ -64,6 +56,9 @@ public class CSV: Codable {
     
     // MARK: - Internal representation of the CSV
     private var internalRows: [[String]] = []
+    
+    // MARK: - Helpers
+    private var csvItemSanitizer = CSVItemSanitizer()
 
     /**
      * Initialize a blank CSV.
@@ -87,6 +82,17 @@ public class CSV: Codable {
         self.internalRows.append(firstRow)
     }
     
+    init(fromCSV csv: String) {
+        Logger.i("Initializing new CSV from existing CSV string.")
+        for row in csv.split(separator: "\n") {
+            var rowItems: [String] = []
+            for rowItem in row {
+                rowItems.append(csvItemSanitizer.sanitizeStringItem(String(rowItem)))
+            }
+            appendRow(values: rowItems)
+        }
+    }
+    
     // MARK: - Public API
     
     public func appendRow(values: String...) {
@@ -94,6 +100,10 @@ public class CSV: Codable {
         internalRows.append(values)
     }
     
+    public func appendRow(values: [String]) {
+        Logger.i("Inserting new row \(values).")
+        internalRows.append(values)
+    }
     
     public func deleteRow(at rowIndex: Int){
         if rowIndex < internalRows.count {
