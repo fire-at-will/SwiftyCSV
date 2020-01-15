@@ -1,4 +1,4 @@
-public class CSV: Codable {
+public class CSV {
     
     /// MARK: - Public Read Only Fields
     public var rows: [[String]] {
